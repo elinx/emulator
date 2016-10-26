@@ -64,7 +64,7 @@ static int cmd_dump_mem(char *args) {
 	sscanf(args, "%d 0x%x", &len, &addr);
 	printf("dump memory start addr: 0x%08x len: %d\n", addr, len);
 	for (i = 0; i < len; ++i) {
-		if (i & 0xf) printf("\n0x%08x: ", addr + i * 16);
+		if (!(i & 0xf)) printf("\n0x%08x: ", addr + i * 16);
 		printf("0x%08x ", *(unsigned int *)hwa_to_va(addr + i));
 	}
 	return 0;

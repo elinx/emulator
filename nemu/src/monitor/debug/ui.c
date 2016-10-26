@@ -59,6 +59,13 @@ static int cmd_info(char *args) {
 	}
 }
 
+static int cmd_dump_mem(char *args) {
+	int addr, len;
+	sscanf(args, "%d 0x%x", &len, &addr);
+	printf("start addr: 0x%08x len: %d\n", addr, len);
+	return 0;
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -70,7 +77,8 @@ static struct {
 
 	/* TODO: Add more commands */
 	{ "s", "Single step", cmd_step},
-	{ "info", "dump informations", cmd_info},
+	{ "info", "dump informations with option: r(registers)", cmd_info},
+	{ "x", "dump memory: x length addr", cmd_dump_mem},
 
 };
 

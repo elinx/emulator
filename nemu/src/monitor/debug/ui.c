@@ -73,6 +73,16 @@ static int cmd_dump_mem(char *args) {
 	return 0;
 }
 
+static int cmd_print(char *args) {
+	int res;
+	bool success;
+
+	res = expr(args, &success);
+	printf("%d\n", res);
+
+	return 0;
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -86,6 +96,7 @@ static struct {
 	{ "s", "Single step", cmd_step},
 	{ "info", "dump informations with option: r(registers)", cmd_info},
 	{ "x", "dump memory: x length addr", cmd_dump_mem},
+	{ "p", "print expressions", cmd_print},
 
 };
 

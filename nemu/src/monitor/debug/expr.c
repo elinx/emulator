@@ -7,9 +7,10 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ
+	NOTYPE = 256, EQ,
 
 	/* TODO: Add more token types */
+	DECIMAL, HEX
 
 };
 
@@ -21,10 +22,16 @@ static struct rule {
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
-
-	{" +",	NOTYPE},				// spaces
-	{"\\+", '+'},					// plus
-	{"==", EQ}						// equal
+	{"\(",             '('},
+	{")",              ')'},
+	{"[0-9]*",         DECIMAL},
+	{"0x[0-9]*",       HEX},
+	{"/",              '/'},
+	{"\\*",            '*'},
+	{"-",              '-'},
+	{" +",	           NOTYPE},	// spaces
+	{"\\+",            '+'},	// plus
+	{"==",             EQ}   	// equal
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -79,7 +86,24 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
-					default: panic("please implement me");
+				case NOTYPE: break;
+				case DECIMAL:
+				case HEX:
+					tokens[nr_token].type = rules[i].token_type;
+					strncpy(tokens[nr_token].str, substr_start, substr_len);
+					nr_token += 1;
+					break;
+				case ')':
+				case '(':
+				case '+':
+				case '-':
+				case '*':
+				case '/':
+					tokens[nr_token].type = rules[i].token_type;
+					*tokens[nr_token].str = rules[i].token_type;
+					nr_token += 1;
+					break;
+				default: panic("please implement me");
 				}
 
 				break;
@@ -95,12 +119,20 @@ static bool make_token(char *e) {
 	return true; 
 }
 
+static void dump_tokens(void)
+{
+	int i = 0;
+	for (; i < nr_token; ++i) {
+		printf("(%d, %s)\n", tokens[i].type, tokens[i].str);
+	}
+}
+
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
 	}
-
+	dump_tokens();
 	/* TODO: Insert codes to evaluate the expression. */
 	panic("please implement me");
 	return 0;

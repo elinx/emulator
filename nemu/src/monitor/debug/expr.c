@@ -197,7 +197,34 @@ static uint32_t eval(uint32_t start, uint32_t end, bool *success)
 
 /* test cases:
  * input:
- *    p 1
+ *         p 1
+ * output:
+ *         1
+ *
+ * input:
+ *         p 1 + 2
+ * output:
+ *         3
+ *
+ * input:
+ *         p 1 + 2 * 3
+ * output:
+ *         7
+ *
+ * intput:
+ *         p 7 - 6
+ * output:
+ *         1
+ *
+ * input:
+ *         p 7 - (2 + 3)
+ * output:
+ *         2
+ *
+ * input:
+ *         p 7 - 2 * 3
+ * output:
+ *         1
  */
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {

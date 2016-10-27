@@ -177,9 +177,11 @@ static uint32_t eval(uint32_t start, uint32_t end, bool *success)
 	} else {
 		uint32_t dom = dominator(start, end);
 		Log("dominator: %d\n", dom);
+
 		uint32_t l = eval(start, dom - 1, success);
 		uint32_t r = eval(dom, end - 1, success);
 
+		Log("l: %d, r: %d\n", l, r);
 		switch (tokens[dom].type) {
 		case '+': return l + r;
 		case '-': return l - r;

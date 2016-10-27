@@ -23,7 +23,7 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 	{"\(",             '('},
-	{")",              ')'},
+	{"\\)",            ')'},
 	{"[0-9]*",         DECIMAL},
 	{"0x[0-9]*",       HEX},
 	{"/",              '/'},

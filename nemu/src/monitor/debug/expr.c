@@ -160,14 +160,16 @@ static uint32_t dominator(uint32_t start, uint32_t end)
 
 static uint32_t eval(uint32_t start, uint32_t end, bool *success)
 {
-	Log("start: %d, end: %d\n", start, end);
 	if (start > end) {
+		Log("start: %d, end: %d\n", start, end);
 		*success = false;
 		return 0;
 	} else if (start == end) {
+		Log("start: %d, end: %d\n", start, end);
 		*success = true;
 		return strtoul(tokens[start].str, 0, 0);
 	} else if (is_parentheses_balance(start, end)) {
+		Log("start: %d, end: %d\n", start, end);
 		return eval(start + 1, end - 1, success);
 	} else {
 		uint32_t dom = dominator(start, end);

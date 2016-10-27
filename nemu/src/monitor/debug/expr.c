@@ -179,6 +179,7 @@ static uint32_t eval(uint32_t start, uint32_t end, bool *success)
 		Log("start: %d, end: %d", start, end);
 		return eval(start + 1, end - 1, success);
 	} else {
+		Log("start: %d, end: %d", start, end);
 		uint32_t dom = dominator(start, end);
 		Log("dominator: %d", dom);
 

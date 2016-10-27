@@ -195,6 +195,10 @@ static uint32_t eval(uint32_t start, uint32_t end, bool *success)
 	}
 }
 
+/* test cases:
+ * input:
+ *    p 1
+ */
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;

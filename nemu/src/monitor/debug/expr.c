@@ -127,14 +127,71 @@ static void dump_tokens(void)
 	}
 }
 
+static bool is_parentheses_balance(uint32_t start, uint32_t end)
+{
+	int cnt = 0;
+	for(; start <= end; ++start) {
+		if (tokens[start].type == '(') cnt++;
+		if (tokens[start].type == ')') cnt--;
+	}
+	return cnt == 0;
+}
+
+static uint32_t dominator(uint32_t start, uint32_t end)
+{
+	uint32_t d = start;
+	for (; start <= end; ++start) {
+		switch (tokens[start].type) {
+		case '+':
+		case '-':
+			d = start;
+			break;
+		case '*':
+		case '/':
+			if (d != '*' && d != '/') d = start;
+			break;
+		default:
+			break;
+		}
+	}
+	return d;
+}
+
+static uint32_t eval(uint32_t start, uint32_t end, bool *success)
+{
+	if (start > end) {
+		*success = false;
+		return 0;
+	} else if (start == end) {
+		*success = true;
+		return strtoul(tokens[start].str, 0, 0);
+	} else if (is_parentheses_balance(start, end)) {
+		return eval(start + 1, end - 1, success);
+	} else {
+		uint32_t dom = dominator(start, end);
+		uint32_t l = eval(start, dom - 1, success);
+		uint32_t r = eval(dom, end - 1, success);
+
+		switch (tokens[dom].type) {
+		case '+': return l + r;
+		case '-': return l - r;
+		case '*': return l * r;
+		case '/': return l / r;
+		default:
+			assert(0);
+		}
+	}
+}
+
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
 	}
-	dump_tokens();
+
 	/* TODO: Insert codes to evaluate the expression. */
-	panic("please implement me");
-	return 0;
+	dump_tokens();
+
+	return eval(0, nr_token - 1, success);
 }
 

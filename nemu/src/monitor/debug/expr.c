@@ -131,6 +131,9 @@ static void dump_tokens(void)
 static bool is_parentheses_balance(uint32_t start, uint32_t end)
 {
 	int cnt = 0;
+
+	if (tokens[start].type != '(') return false;
+
 	for(; start <= end; ++start) {
 		if (tokens[start].type == '(') cnt++;
 		if (tokens[start].type == ')') cnt--;

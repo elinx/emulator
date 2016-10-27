@@ -160,6 +160,7 @@ static uint32_t dominator(uint32_t start, uint32_t end)
 
 static uint32_t eval(uint32_t start, uint32_t end, bool *success)
 {
+	Log("start: %d, end: %d\n", start, end);
 	if (start > end) {
 		*success = false;
 		return 0;

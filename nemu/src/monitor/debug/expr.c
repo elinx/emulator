@@ -147,6 +147,7 @@ static uint32_t dominator(uint32_t start, uint32_t end)
 	for (; start <= end; ++start) {
 		if (tokens[start].type == '(')
 			while (tokens[start++].type != ')');
+		printf("start: %d\n", start);
 		switch (tokens[start].type) {
 		case '+':
 		case '-':

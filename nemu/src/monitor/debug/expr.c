@@ -122,6 +122,7 @@ static bool make_token(char *e) {
 static void dump_tokens(void)
 {
 	int i = 0;
+	printf("%d tokens:\n", nr_token);
 	for (; i < nr_token; ++i) {
 		printf("[%02d] (%d, %s)\n", i, tokens[i].type, tokens[i].str);
 	}

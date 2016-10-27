@@ -143,7 +143,7 @@ static bool is_parentheses_balance(uint32_t start, uint32_t end)
 
 static uint32_t dominator(uint32_t start, uint32_t end)
 {
-	uint32_t d = start;
+	uint32_t d = start, low = 0;
 	for (; start <= end; ++start) {
 		if (tokens[start].type == '(')
 			while (tokens[start++].type != ')');
@@ -151,10 +151,11 @@ static uint32_t dominator(uint32_t start, uint32_t end)
 		case '+':
 		case '-':
 			d = start;
+			low = 1;
 			break;
 		case '*':
 		case '/':
-			if (d != '*' && d != '/') d = start;
+			if (low == 0) d = start;
 			break;
 		default:
 			break;

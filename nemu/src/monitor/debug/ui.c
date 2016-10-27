@@ -78,7 +78,9 @@ static int cmd_print(char *args) {
 	bool success;
 
 	assert(expr("1 + 2 * 3", &success) == 7);
+	assert(success == true);
 	assert(expr("7 - 2 * 3", &success) == 1);
+	assert(success == true);
 
 	res = expr(args, &success);
 	printf("%d\n", res);

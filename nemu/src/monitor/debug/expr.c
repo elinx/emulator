@@ -123,7 +123,7 @@ static void dump_tokens(void)
 {
 	int i = 0;
 	for (; i < nr_token; ++i) {
-		printf("(%d, %s)\n", tokens[i].type, tokens[i].str);
+		printf("[%02d] (%d, %s)\n", i, tokens[i].type, tokens[i].str);
 	}
 }
 

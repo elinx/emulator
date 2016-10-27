@@ -179,7 +179,7 @@ static uint32_t eval(uint32_t start, uint32_t end, bool *success)
 		Log("dominator: %d\n", dom);
 
 		uint32_t l = eval(start, dom - 1, success);
-		uint32_t r = eval(dom, end, success);
+		uint32_t r = eval(dom + 1, end, success);
 
 		Log("l: %d, r: %d\n", l, r);
 		switch (tokens[dom].type) {

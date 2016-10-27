@@ -145,6 +145,8 @@ static uint32_t dominator(uint32_t start, uint32_t end)
 {
 	uint32_t d = start;
 	for (; start <= end; ++start) {
+		if (tokens[start].type == '(')
+			while (tokens[start++].type != ')');
 		switch (tokens[start].type) {
 		case '+':
 		case '-':

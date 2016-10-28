@@ -93,6 +93,23 @@ static int cmd_print(char *args) {
 	return 0;
 }
 
+static int wp_flag = 0;
+static int wp_res = 0;
+static int cmd_watch(char *args) {
+	bool success;
+	int res = expr(args, &success);
+
+	// watchpoint hts iff expression value changes
+	if (wp_flag && res != wp_res) {
+		wp_res = res;
+		printf("watchpoint hit\n");
+	}
+
+	wp_flag = 1;
+
+	return 0;
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -107,6 +124,7 @@ static struct {
 	{ "info", "dump informations with option: r(registers)", cmd_info},
 	{ "x", "dump memory: x length addr", cmd_dump_mem},
 	{ "p", "print expressions", cmd_print},
+	{ "w", "watch expressions", cmd_watch},
 
 };
 

@@ -83,6 +83,7 @@ static int cmd_print(char *args) {
 	assert(success == true);
 	assert(expr("(1+2) * (3+4)", &success) == 21);
 	assert(success == true);
+	assert(expr("-1 + 2", &success) == 1);
 
 	res = expr(args, &success);
 	printf("%d\n", res);

@@ -180,10 +180,10 @@ static int32_t eval(uint32_t start, uint32_t end, bool *success)
 	} else if (start == end) {
 		*success = true;
 		return strtol(tokens[start].str, 0, 0);
-	} else if (tokens[start].type == NEG) {
+	} else if (tokens[start].type == NEG) { /* process negtive number */
 		*success = true;
 		return -strtol(tokens[++start].str, 0, 0);
-	} else if (tokens[start].type == DEREF) {
+	} else if (tokens[start].type == DEREF) { /* process de-reference */
 		*success = true;
 		return swaddr_read(strtol(tokens[++start].str, 0, 0), 1);
 	} else if (is_parentheses_balance(start, end)) {

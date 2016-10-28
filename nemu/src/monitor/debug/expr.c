@@ -90,6 +90,10 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
 				case NOTYPE: break;
+				case EQ:
+				case NEQ:
+				case AND:
+				case OR:
 				case DECIMAL:
 				case HEX:
 					tokens[nr_token].type = rules[i].token_type;

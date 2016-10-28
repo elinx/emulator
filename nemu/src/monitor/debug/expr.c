@@ -184,7 +184,7 @@ static int32_t eval(uint32_t start, uint32_t end, bool *success)
 	} else if (tokens[start].type == NEG) {
 		Log("start: %d, end: %d", start, end);
 		*success = true;
-		return -strtol(tokens[start].str, 0, 0);
+		return -strtol(tokens[++start].str, 0, 0);
 	} else if (is_parentheses_balance(start, end)) {
 		/* Log("start: %d, end: %d", start, end); */
 		return eval(start + 1, end - 1, success);

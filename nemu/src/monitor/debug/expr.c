@@ -183,6 +183,9 @@ static int32_t eval(uint32_t start, uint32_t end, bool *success)
 	} else if (tokens[start].type == NEG) {
 		*success = true;
 		return -strtol(tokens[++start].str, 0, 0);
+	} else if (tokens[start].type == DEREF) {
+		*success = true;
+		return swaddr_read(strtol(tokens[++start].str, 0, 0), 1);
 	} else if (is_parentheses_balance(start, end)) {
 		return eval(start + 1, end - 1, success);
 	} else {

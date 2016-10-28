@@ -11,6 +11,7 @@ enum {
 
 	/* TODO: Add more token types */
 	DECIMAL, HEX, NEG, DEREF,
+	GT, GTE, LT, LTE,
 	NEQ, AND, OR, NOT
 };
 
@@ -33,8 +34,12 @@ static struct rule {
 	{"\\+",            '+'},	// plus
 	{"==",             EQ},   	// equal
 	{"!=",             NEQ},        // not equal
-	{"&&",             AND},
-	{"||",             OR},
+	{"&&",             AND},        // logic and
+	{"||",             OR},         // logic or
+	{">=",             GTE},        // >=
+	{">",              GT},         // >
+	{"<=",             LTE},        // <=
+	{"<",              LT},         // <
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -96,6 +101,8 @@ static bool make_token(char *e) {
 				case OR:
 				case DECIMAL:
 				case HEX:
+				case GTE:
+				case LTE:
 					tokens[nr_token].type = rules[i].token_type;
 					strncpy(tokens[nr_token].str, substr_start, substr_len);
 					nr_token += 1;
@@ -106,6 +113,8 @@ static bool make_token(char *e) {
 				case '-':
 				case '*':
 				case '/':
+				case GT:
+				case LT:
 					tokens[nr_token].type = rules[i].token_type;
 					*tokens[nr_token].str = rules[i].token_type;
 					nr_token += 1;
@@ -166,6 +175,10 @@ static uint32_t dominator(uint32_t start, uint32_t end)
 		case NEQ:
 		case AND:
 		case OR:
+		case GT:
+		case GTE:
+		case LT:
+		case LTE:
 			d = start;
 			fo = 1;	/* first order donimator */
 			break;

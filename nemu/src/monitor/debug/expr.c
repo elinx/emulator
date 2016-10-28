@@ -173,23 +173,19 @@ static uint32_t dominator(uint32_t start, uint32_t end)
 
 static int32_t eval(uint32_t start, uint32_t end, bool *success)
 {
+	Log("start: %d, end: %d", start, end);
 	if (start > end) {
-		/* Log("start: %d, end: %d", start, end); */
 		*success = false;
 		return 0;
 	} else if (start == end) {
-		/* Log("start: %d, end: %d", start, end); */
 		*success = true;
 		return strtol(tokens[start].str, 0, 0);
 	} else if (tokens[start].type == NEG) {
-		Log("start: %d, end: %d", start, end);
 		*success = true;
 		return -strtol(tokens[++start].str, 0, 0);
 	} else if (is_parentheses_balance(start, end)) {
-		/* Log("start: %d, end: %d", start, end); */
 		return eval(start + 1, end - 1, success);
 	} else {
-		Log("start: %d, end: %d", start, end);
 		uint32_t dom = dominator(start, end);
 		Log("dominator: %d", dom);
 

@@ -10,7 +10,7 @@ enum {
 	NOTYPE = 256, EQ,
 
 	/* TODO: Add more token types */
-	DECIMAL, HEX
+	DECIMAL, HEX, NEG, DEREF,
 
 };
 
@@ -185,14 +185,14 @@ static uint32_t eval(uint32_t start, uint32_t end, bool *success)
 		/* Log("start: %d, end: %d", start, end); */
 		return eval(start + 1, end - 1, success);
 	} else {
-		/* Log("start: %d, end: %d", start, end); */
+		Log("start: %d, end: %d", start, end);
 		uint32_t dom = dominator(start, end);
-		/* Log("dominator: %d", dom); */
+		Log("dominator: %d", dom);
 
 		uint32_t l = eval(start, dom - 1, success);
 		uint32_t r = eval(dom + 1, end, success);
 
-		/* Log("l: %d, r: %d", l, r); */
+		Log("l: %d, r: %d", l, r);
 		switch (tokens[dom].type) {
 		case '+': return l + r;
 		case '-': return l - r;
@@ -202,6 +202,42 @@ static uint32_t eval(uint32_t start, uint32_t end, bool *success)
 			assert(0);
 		}
 	}
+}
+
+static inline bool is_neg_number(uint32_t i)
+{
+	if (tokens[i].type == '-') {
+		if (i == 0) {
+			return true;
+		} else if (tokens[i - 1].type != DECIMAL &&
+			   tokens[i - 1].type != HEX) {
+			return true;
+		}
+	}
+	return false;
+}
+
+static inline bool is_deref(uint32_t i)
+{
+	if (tokens[i].type == '*') {
+		if (i == 0) {
+			return true;
+		} else if (tokens[i - 1].type != DECIMAL &&
+			   tokens[i - 1].type != HEX) {
+			return true;
+		}
+	}
+	return false;
+}
+
+static void pre_process_tokens()
+{
+	int i = 0;
+	for (; i < nr_token; ++i) {
+		if (is_neg_number(i)) tokens[i].type = NEG;
+		else if(is_deref(i)) tokens[i].type = DEREF;
+	}
+
 }
 
 /* test cases:
@@ -245,7 +281,7 @@ uint32_t expr(char *e, bool *success) {
 #ifdef DUMP_TOKENS
 	dump_tokens();
 #endif
-
+	pre_process_tokens();
 	return eval(0, nr_token - 1, success);
 }
 

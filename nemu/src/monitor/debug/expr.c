@@ -235,6 +235,10 @@ static int32_t eval(uint32_t start, uint32_t end, bool *success)
 		case NEQ: return l != r;
 		case AND: return l && r;
 		case OR:  return l || r;
+		case GT:  return l > r;
+		case GTE: return l >= r;
+		case LT:  return l < r;
+		case LTE: return l <= r;
 		default:
 			assert(0);
 		}

@@ -11,7 +11,7 @@ enum {
 
 	/* TODO: Add more token types */
 	DECIMAL, HEX, NEG, DEREF,
-
+	NEQ, AND, OR, NOT
 };
 
 static struct rule {
@@ -31,7 +31,10 @@ static struct rule {
 	{"\\-",            '-'},
 	{" +",	           NOTYPE},	// spaces
 	{"\\+",            '+'},	// plus
-	{"==",             EQ}   	// equal
+	{"==",             EQ},   	// equal
+	{"!=",             NEQ},        // not equal
+	{"&&",             AND},
+	{"||",             OR},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -149,19 +152,29 @@ out:
 
 static uint32_t dominator(uint32_t start, uint32_t end)
 {
-	uint32_t d = start, low = 0;
+	uint32_t d = start, low = 0, fo = 0;
 	for (; start <= end; ++start) {
 		if (tokens[start].type == '(')
 			while (tokens[start++].type != ')');
 				/* printf("start: %d\n", start); */
 		switch (tokens[start].type) {
+		case EQ:
+		case NEQ:
+		case AND:
+		case OR:
+			d = start;
+			fo = 1;	/* first order donimator */
+			break;
 		case '+':
 		case '-':
-			d = start;
-			low = 1;
+			if (fo == 0) { /* dominates when logical operator don't */
+				d = start;
+				low = 1;
+			}
 			break;
 		case '*':
 		case '/':
+			// */- dominates only when +/- don't
 			if (low == 0) d = start;
 			break;
 		default:
@@ -201,6 +214,10 @@ static int32_t eval(uint32_t start, uint32_t end, bool *success)
 		case '-': return l - r;
 		case '*': return l * r;
 		case '/': return l / r;
+		case EQ:  return l == r;
+		case NEQ: return l != r;
+		case AND: return l && r;
+		case OR:  return l || r;
 		default:
 			assert(0);
 		}

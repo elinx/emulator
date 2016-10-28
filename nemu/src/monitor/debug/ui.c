@@ -77,13 +77,15 @@ static int cmd_print(char *args) {
 	int res;
 	bool success;
 
-	assert(expr("1 + 2 * 3", &success) == 7);
-	assert(success == true);
-	assert(expr("7 - 2 * 3", &success) == 1);
-	assert(success == true);
-	assert(expr("(1+2) * (3+4)", &success) == 21);
-	assert(success == true);
-	assert(expr("-1 + 2", &success) == 1);
+	/*
+         * assert(expr("1 + 2 * 3", &success) == 7);
+	 * assert(success == true);
+	 * assert(expr("7 - 2 * 3", &success) == 1);
+	 * assert(success == true);
+	 * assert(expr("(1+2) * (3+4)", &success) == 21);
+	 * assert(success == true);
+	 * assert(expr("-1 + 2", &success) == 1);
+         */
 
 	res = expr(args, &success);
 	printf("%d\n", res);

@@ -119,6 +119,7 @@ static bool make_token(char *e) {
 	return true; 
 }
 
+#ifdef DUMP_TOKENS
 static void dump_tokens(void)
 {
 	int i = 0;
@@ -127,6 +128,7 @@ static void dump_tokens(void)
 		printf("[%02d] (%d, %s)\n", i, tokens[i].type, tokens[i].str);
 	}
 }
+#endif
 
 static bool is_parentheses_balance(uint32_t start, uint32_t end)
 {
@@ -171,25 +173,25 @@ static uint32_t dominator(uint32_t start, uint32_t end)
 static uint32_t eval(uint32_t start, uint32_t end, bool *success)
 {
 	if (start > end) {
-		Log("start: %d, end: %d", start, end);
+		/* Log("start: %d, end: %d", start, end); */
 		*success = false;
 		return 0;
 	} else if (start == end) {
-		Log("start: %d, end: %d", start, end);
+		/* Log("start: %d, end: %d", start, end); */
 		*success = true;
 		return strtoul(tokens[start].str, 0, 0);
 	} else if (is_parentheses_balance(start, end)) {
-		Log("start: %d, end: %d", start, end);
+		/* Log("start: %d, end: %d", start, end); */
 		return eval(start + 1, end - 1, success);
 	} else {
-		Log("start: %d, end: %d", start, end);
+		/* Log("start: %d, end: %d", start, end); */
 		uint32_t dom = dominator(start, end);
-		Log("dominator: %d", dom);
+		/* Log("dominator: %d", dom); */
 
 		uint32_t l = eval(start, dom - 1, success);
 		uint32_t r = eval(dom + 1, end, success);
 
-		Log("l: %d, r: %d", l, r);
+		/* Log("l: %d, r: %d", l, r); */
 		switch (tokens[dom].type) {
 		case '+': return l + r;
 		case '-': return l - r;
@@ -239,7 +241,9 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
+#ifdef DUMP_TOKENS
 	dump_tokens();
+#endif
 
 	return eval(0, nr_token - 1, success);
 }

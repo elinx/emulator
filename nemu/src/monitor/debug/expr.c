@@ -132,13 +132,16 @@ static bool is_parentheses_balance(uint32_t start, uint32_t end)
 {
 	int cnt = 0;
 
-	if (tokens[start].type != '(') return false;
-
-	for(; start <= end; ++start) {
-		if (tokens[start].type == '(') cnt++;
-		if (tokens[start].type == ')') cnt--;
+	if ((tokens[start++].type == '(') && (tokens[end--].type == ')')) {
+		for(; start < end; ++start) {
+			if (tokens[start].type == '(') cnt++;
+			if (tokens[start].type == ')') cnt--;
+			if (cnt < 0) goto out;
+		}
+		return cnt == 0;
 	}
-	return cnt == 0;
+out:
+	return false;
 }
 
 static uint32_t dominator(uint32_t start, uint32_t end)

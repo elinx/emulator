@@ -35,7 +35,7 @@ static struct rule {
 	{"==",             EQ},   	// equal
 	{"!=",             NEQ},        // not equal
 	{"&&",             AND},        // logic and
-	{"||",             OR},         // logic or
+	{"\\|\\|",         OR},         // logic or
 	{">=",             GTE},        // >=
 	{">",              GT},         // >
 	{"<=",             LTE},        // <=

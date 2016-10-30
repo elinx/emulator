@@ -56,3 +56,12 @@ uint32_t scan_watchpoints()
 	}
 	return res;
 }
+
+void dump_wps()
+{
+	WP *p = head;
+
+	for (; p; p = p->next) {
+		printf("[%02d] expr: %s\n", p->NO, p->expr);
+	}
+}

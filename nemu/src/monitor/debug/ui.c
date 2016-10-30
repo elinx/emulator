@@ -56,6 +56,7 @@ static void dump_regs() {
 static int cmd_info(char *args) {
 	switch (*args) {
 	case 'r': dump_regs(); return 0;
+	case 'w': dump_wps(); return 0;
 	default: return 1;
 	}
 }

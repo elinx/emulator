@@ -39,7 +39,7 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_step(char *args) {
-	cpu_exec(1);
+	cpu_exec(strtoul(args, 0, 0));
 	return 0;
 }
 
@@ -111,7 +111,7 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 
 	/* TODO: Add more commands */
-	{ "s", "Single step", cmd_step},
+	{ "si", "Single step: si [N]", cmd_step},
 	{ "info", "dump informations with option: r(registers)", cmd_info},
 	{ "x", "dump memory: x length addr", cmd_dump_mem},
 	{ "p", "print expressions", cmd_print},

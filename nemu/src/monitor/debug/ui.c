@@ -39,7 +39,8 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_step(char *args) {
-	cpu_exec(strtoul(args, 0, 0));
+	uint32_t s = args ? strtoul(args, 0, 0) : 1;
+	cpu_exec(s);
 	return 0;
 }
 

@@ -94,11 +94,9 @@ static int cmd_print(char *args) {
 }
 
 static int cmd_watch(char *args) {
-	bool success;
 	WP *wp = new_wp();
-
+	assert(wp);
 	wp->expr = strdup(args);
-	wp->old_val = expr(args, &success);
 
 	return 0;
 }

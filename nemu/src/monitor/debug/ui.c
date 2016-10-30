@@ -103,6 +103,11 @@ static int cmd_watch(char *args) {
 	return 0;
 }
 
+static int cmd_del_watch(char *args) {
+	uint32_t nr = strtoul(args, 0, 0);
+	return delete_wp(nr);
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -118,6 +123,7 @@ static struct {
 	{ "x", "dump memory: x length addr", cmd_dump_mem},
 	{ "p", "print expressions", cmd_print},
 	{ "w", "watch expressions", cmd_watch},
+	{ "d", "delete watch expressions: d N", cmd_del_watch},
 
 };
 

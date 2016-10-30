@@ -65,3 +65,11 @@ void dump_wps()
 		printf("[%02d] expr: %s\n", p->NO, p->expr);
 	}
 }
+
+int delete_wp(uint32_t N)
+{
+	if (N > NR_WP) return 1;
+
+	free_wp(&wp_pool[N]);
+	return 0;
+}

@@ -16,5 +16,6 @@ WP *new_wp();
 void free_wp(WP *wp);
 uint32_t scan_watchpoints();
 void dump_wps();
+int delete_wp(uint32_t N);
 
 #endif

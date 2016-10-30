@@ -211,6 +211,7 @@ static uint32_t read_reg(const char *reg)
 
 	while (reg_name) {
 		if (strcmp(reg, reg_name) == 0) {
+			Log("%s: %d", reg_name, reg_l(i));
 			return reg_l(i);
 		}
 		++i;

@@ -27,7 +27,7 @@ WP *new_wp()
 	free_ = free_->next;
 
 	// add to busy list
-	p->next = head->next;
+	p->next = head;
 	head = p;
 
 	return p;

@@ -73,6 +73,22 @@ int delete_wp(uint32_t N)
 	if (N > NR_WP ||
 	    wp_pool[N].status == 0) return 1;
 
-	free_wp(&wp_pool[N]);
-	return 0;
+	WP *p = head, *prev = 0;
+	for (; p; p = p->next) {
+		if (p->NO == N) {
+			if (!prev) {
+				WP *w = head;
+				head = head->next;
+				free_wp(w);
+				return 0;
+			} else {
+				WP *w = p;
+				prev = p->next;
+				free_wp(w);
+			}
+		}
+		prev = p;
+	}
+
+	return 1;
 }

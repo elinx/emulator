@@ -82,6 +82,7 @@ int delete_wp(uint32_t N)
 				free_wp(w);
 				return 0;
 			} else { /* middle node to be deleted */
+				printf("prev: %d, p: %d", prev->NO, p->NO);
 				WP *w = p;
 				prev = p->next;
 				free_wp(w);

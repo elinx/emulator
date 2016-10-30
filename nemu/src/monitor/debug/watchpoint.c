@@ -38,3 +38,21 @@ void free_wp(WP *wp)
 	wp->next = free_;
 	free_ = wp;
 }
+
+// scan watchpoints list, if a the value of the watchpoint
+// changes stop the emulator and print the information
+uint32_t scan_watchpoints()
+{
+	WP *p = head;
+	bool s;
+	uint32_t res = 0;
+	for (; p; p = p->next) {
+		uint32_t new_val = expr(p->expr, &s);
+		if (p->old_val != new_val) {
+			printf("%s value change from %u to %u\n", p->expr, p->old_val, new_val);
+			p->old_val = new_val;
+			res = 1;
+		}
+	}
+	return res;
+}

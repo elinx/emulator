@@ -48,7 +48,7 @@ uint32_t scan_watchpoints()
 	uint32_t res = 0;
 	for (; p; p = p->next) {
 		uint32_t new_val = expr(p->expr, &s);
-		Log("%s: %u", p->expr, new_val);
+		Log("==============%s: %u", p->expr, new_val);
 		if (new_val) {
 			printf("value of %s changes\n", p->expr);
 			res = 1;

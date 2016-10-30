@@ -93,19 +93,12 @@ static int cmd_print(char *args) {
 	return 0;
 }
 
-static int wp_flag = 0;
-static int wp_res = 0;
 static int cmd_watch(char *args) {
 	bool success;
-	int res = expr(args, &success);
+	WP *wp = new_wp();
 
-	// watchpoint hts iff expression value changes
-	if (wp_flag && res != wp_res) {
-		wp_res = res;
-		printf("watchpoint hit\n");
-	}
-
-	wp_flag = 1;
+	wp->expr = strdup(args);
+	wp->old_val = expr(args, &success);
 
 	return 0;
 }

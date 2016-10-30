@@ -21,8 +21,15 @@ void init_wp_pool() {
 /* TODO: Implement the functionality of watchpoint */
 WP *new_wp()
 {
+	// get a new wp from free list
 	WP *p = free_;
+	assert(p);
 	free_ = free_->next;
+
+	// add to busy list
+	p->next = head->next;
+	head = p;
+
 	return p;
 }
 

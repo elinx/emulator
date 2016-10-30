@@ -6,8 +6,9 @@
 #include <sys/types.h>
 #include <regex.h>
 
+#define REG_PATTERN "\\$[eax|ebx|ecx|edx|esp|ebp|esi|edi]"
 enum {
-	NOTYPE = 256, EQ,
+	NOTYPE = 256, EQ, EREG,
 
 	/* TODO: Add more token types */
 	DECIMAL, HEX, NEG, DEREF,
@@ -23,6 +24,7 @@ static struct rule {
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
+	{REG_PATTERN,      EREG},
 	{"\\(",            '('},
 	{"\\)",            ')'},
 	{"[0-9][0-9]*",    DECIMAL},
@@ -95,6 +97,7 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
 				case NOTYPE: break;
+				case EREG:
 				case EQ:
 				case NEQ:
 				case AND:
@@ -201,6 +204,21 @@ static uint32_t dominator(uint32_t start, uint32_t end)
 	return d;
 }
 
+static uint32_t read_reg(const char *reg)
+{
+	uint32_t i = 0;
+	const char *reg_name = regsl[i];
+
+	while (reg_name) {
+		if (strcmp(reg, reg_name) == 0) {
+			return reg_l(i);
+		}
+		++i;
+		reg_name = regsl[i];
+	}
+	return 0;
+}
+
 static int32_t eval(uint32_t start, uint32_t end, bool *success)
 {
 	Log("start: %d, end: %d", start, end);
@@ -210,6 +228,9 @@ static int32_t eval(uint32_t start, uint32_t end, bool *success)
 	} else if (start == end) {
 		*success = true;
 		return strtol(tokens[start].str, 0, 0);
+	} else if (tokens[start].type == EREG) {
+		*success = true;
+		return read_reg(tokens[start].str + 1); /* remove the prefix '$' */
 	} else if (tokens[start].type == NEG) { /* process negtive number */
 		*success = true;
 		return -strtol(tokens[++start].str, 0, 0);

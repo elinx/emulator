@@ -225,18 +225,26 @@ static int32_t eval(uint32_t start, uint32_t end, bool *success)
 	if (start > end) {
 		*success = false;
 		return 0;
-	} else if (start == end) {
-		*success = true;
-		return strtol(tokens[start].str, 0, 0);
-	} else if (tokens[start].type == EREG) {
-		*success = true;
-		return read_reg(tokens[start++].str + 1); /* remove the prefix '$' */
-	} else if (tokens[start].type == NEG) { /* process negtive number */
-		*success = true;
-		return -strtol(tokens[++start].str, 0, 0);
-	} else if (tokens[start].type == DEREF) { /* process de-reference */
-		*success = true;
-		return swaddr_read(strtol(tokens[++start].str, 0, 0), 1);
+	} else if (start == end ||
+		tokens[start].type == NEG ||
+		tokens[start].type == DEREF) {
+		switch  (tokens[start].type) {
+		case DECIMAL:
+		case HEX:
+			*success = true;
+			return strtol(tokens[start].str, 0, 0);
+		case EREG:
+			*success = true;
+			return read_reg(tokens[start].str + 1); /* remove the prefix '$' */
+		case NEG:  /* process negtive number */
+			*success = true;
+			return -strtol(tokens[++start].str, 0, 0);
+		case DEREF: /* process de-reference */
+			*success = true;
+			return swaddr_read(strtol(tokens[++start].str, 0, 0), 1);
+		default:
+			assert(0);
+		}
 	} else if (is_parentheses_balance(start, end)) {
 		return eval(start + 1, end - 1, success);
 	} else {

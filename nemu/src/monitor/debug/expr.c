@@ -230,7 +230,7 @@ static int32_t eval(uint32_t start, uint32_t end, bool *success)
 		return strtol(tokens[start].str, 0, 0);
 	} else if (tokens[start].type == EREG) {
 		*success = true;
-		return read_reg(tokens[start].str + 1); /* remove the prefix '$' */
+		return read_reg(tokens[start++].str + 1); /* remove the prefix '$' */
 	} else if (tokens[start].type == NEG) { /* process negtive number */
 		*success = true;
 		return -strtol(tokens[++start].str, 0, 0);

@@ -210,7 +210,7 @@ static uint32_t read_reg(const char *reg)
 	const char *reg_name = regsl[i];
 
 	if (strcmp(reg, "eip") == 0) {
-		Log("%s: %u", reg_name, cpu.eip);
+		Log("%s: 0x%08x", reg_name, cpu.eip);
 		return cpu.eip;
 	}
 

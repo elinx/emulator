@@ -85,6 +85,7 @@ int delete_wp(uint32_t N)
 				WP *w = p;
 				prev = p->next;
 				free_wp(w);
+				return 0;
 			}
 		}
 		prev = p;

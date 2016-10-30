@@ -209,13 +209,15 @@ static uint32_t read_reg(const char *reg)
 	uint32_t i = 0;
 	const char *reg_name = regsl[i];
 
+	if (strcmp(reg, "eip") == 0) {
+		Log("%s: %u", reg_name, cpu.eip);
+		return cpu.eip;
+	}
+
 	while (reg_name) {
 		if (strcmp(reg, reg_name) == 0) {
 			Log("%s: %u", reg_name, reg_l(i));
 			return reg_l(i);
-		} else if (strcmp(reg_name, "eip") == 0) {
-			Log("%s: %u", reg_name, cpu.eip);
-			return cpu.eip;
 		}
 		++i;
 		reg_name = regsl[i];

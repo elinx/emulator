@@ -11,6 +11,7 @@ void init_wp_pool() {
 	for(i = 0; i < NR_WP; i ++) {
 		wp_pool[i].NO = i;
 		wp_pool[i].next = &wp_pool[i + 1];
+		wp_pool[i].status = 0;
 	}
 	wp_pool[NR_WP - 1].next = NULL;
 
@@ -25,6 +26,7 @@ WP *new_wp()
 	WP *p = free_;
 	assert(p);
 	free_ = free_->next;
+	p->status = 1;
 
 	// add to busy list
 	p->next = head;
@@ -68,7 +70,8 @@ void dump_wps()
 
 int delete_wp(uint32_t N)
 {
-	if (N > NR_WP) return 1;
+	if (N > NR_WP ||
+	    wp_pool[N].status == 0) return 1;
 
 	free_wp(&wp_pool[N]);
 	return 0;

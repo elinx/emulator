@@ -76,12 +76,12 @@ int delete_wp(uint32_t N)
 	WP *p = head, *prev = 0;
 	for (; p; p = p->next) {
 		if (p->NO == N) {
-			if (!prev) {
+			if (!prev) { /* first node to be deleted */
 				WP *w = head;
 				head = head->next;
 				free_wp(w);
 				return 0;
-			} else {
+			} else { /* middle node to be deleted */
 				WP *w = p;
 				prev = p->next;
 				free_wp(w);

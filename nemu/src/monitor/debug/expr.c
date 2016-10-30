@@ -6,7 +6,7 @@
 #include <sys/types.h>
 #include <regex.h>
 
-#define REG_PATTERN "\\$(eax|ebx|ecx|edx|esp|ebp|esi|edi)"
+#define REG_PATTERN "\\$(eax|ebx|ecx|edx|esp|ebp|esi|edi|eip)"
 enum {
 	NOTYPE = 256, EQ, EREG,
 
@@ -213,6 +213,9 @@ static uint32_t read_reg(const char *reg)
 		if (strcmp(reg, reg_name) == 0) {
 			Log("%s: %u", reg_name, reg_l(i));
 			return reg_l(i);
+		} else if (strcmp(reg_name, "eip") == 0) {
+			Log("%s: %u", reg_name, cpu.eip);
+			return cpu.eip;
 		}
 		++i;
 		reg_name = regsl[i];

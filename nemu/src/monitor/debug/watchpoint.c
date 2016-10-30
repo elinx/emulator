@@ -60,7 +60,7 @@ uint32_t scan_watchpoints()
 void dump_wps()
 {
 	WP *p = head;
-
+	printf("watchpoints list:\n");
 	for (; p; p = p->next) {
 		printf("[%02d] expr: %s\n", p->NO, p->expr);
 	}

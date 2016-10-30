@@ -6,7 +6,7 @@
 #include <sys/types.h>
 #include <regex.h>
 
-#define REG_PATTERN "\\$[eax|ebx|ecx|edx|esp|ebp|esi|edi]"
+#define REG_PATTERN "\\$(eax|ebx|ecx|edx|esp|ebp|esi|edi)"
 enum {
 	NOTYPE = 256, EQ, EREG,
 

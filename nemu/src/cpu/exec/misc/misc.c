@@ -23,3 +23,7 @@ make_helper(lea) {
 	print_asm("leal %s,%%%s", op_src->str, regsl[m.reg]);
 	return 1 + len;
 }
+
+make_helper(call_rel32) {
+	return 1 + 4;
+}

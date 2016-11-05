@@ -8,4 +8,4 @@
 #include "call-template.h"
 #undef DATA_BYTE
 
-make_helper_v(call_c)
+make_helper_v(call_i)

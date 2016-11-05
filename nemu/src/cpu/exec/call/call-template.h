@@ -8,9 +8,9 @@ static void do_execute()
 	REG(R_ESP) -= DATA_BYTE;                    // push EIP
 	MEM_W(REG(R_ESP), cpu.eip);
 	cpu.eip += op_src->val;                     // EIP += rel32/rel16
-	print_asm_template1();
+	print_asm("call 0x%x", cpu.eip);
 }
 
-make_instr_helper(c)
+make_instr_helper(i)
 
 #include "cpu/exec/template-end.h"

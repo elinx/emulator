@@ -8,16 +8,6 @@
 #define decode_a concat(decode_a_, SUFFIX)
 #define decode_r2rm concat(decode_r2rm_, SUFFIX)
 
-/* cw/cd */
-make_helper(concat(decode_c_, SUFFIX)) {
-	op_src->type = OP_TYPE_CALL;
-	op_src->val = instr_fetch(eip, DATA_BYTE);
-#ifdef DEBUG
-	snprintf(op_src->str, OP_STR_SIZE, "0x%x", eip + DATA_BYTE + op_src->val);
-#endif
-	return DATA_BYTE;
-}
-
 /* Ib, Iv */
 make_helper(concat(decode_i_, SUFFIX)) {
 	/* eip here is pointing to the immediate */

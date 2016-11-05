@@ -2,9 +2,11 @@
 
 #define instr call
 
-static void do_exec()
+static void do_execute()
 {
-
+	// call relative
 }
 
 make_instr_helper(i)
+
+#include "cpu/exec/template-end.h"

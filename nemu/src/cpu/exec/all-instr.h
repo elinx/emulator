@@ -24,6 +24,6 @@
 
 #include "misc/misc.h"
 
-/* #include "call/call.h" */
+#include "call/call.h"
 
 #include "special/special.h"

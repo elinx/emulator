@@ -24,7 +24,3 @@ make_helper(lea) {
 	return 1 + len;
 }
 
-make_helper(call_rel32) {
-	/* print_asm("call %d", ); */
-	return 1 + 4;
-}

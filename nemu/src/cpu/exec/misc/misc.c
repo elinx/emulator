@@ -25,5 +25,6 @@ make_helper(lea) {
 }
 
 make_helper(call_rel32) {
+	/* print_asm("call %d", ); */
 	return 1 + 4;
 }

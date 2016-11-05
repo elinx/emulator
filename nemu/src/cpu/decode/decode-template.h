@@ -13,7 +13,7 @@ make_helper(concat(decode_c_, SUFFIX)) {
 	op_src->type = OP_TYPE_CALL;
 	op_src->val = instr_fetch(eip, DATA_BYTE);
 #ifdef DEBUG
-	snprintf(op_src->str, OP_STR_SIZE, "0x%x", eip + DATA_BYTE + 1 + op_src->val);
+	snprintf(op_src->str, OP_STR_SIZE, "0x%x", eip + DATA_BYTE + op_src->val);
 #endif
 	return DATA_BYTE;
 }

@@ -5,11 +5,9 @@
 static void do_execute()
 {
 	// 1. push(eip), then esp decrease by ##?
-	REG(R_ESP) -= 4;                                             // decscrease ESP
-	MEM_W(REG(R_ESP), cpu.eip + DATA_BYTE + OPCODE_SIZE);        // save return address
-
-	cpu.eip += op_src->val;                                      // EIP += rel32/rel16
-	print_asm("call 0x%x", cpu.eip + DATA_BYTE + OPCODE_SIZE);
+	REG(R_ESP) -= DATA_BYTE;                      // decscrease ESP
+	MEM_W(REG(R_ESP), op_src->val);
+	print_asm_template1();
 }
 
 make_instr_helper(r)

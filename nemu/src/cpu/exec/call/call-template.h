@@ -5,10 +5,10 @@
 static void do_execute()
 {
 	// 1. push(eip), then esp decrease by ##?
-	REG(R_ESP) -= DATA_BYTE;                            // push EIP
+	REG(R_ESP) -= DATA_BYTE;                    // push EIP
 	MEM_W(REG(R_ESP), cpu.eip);
-	// 2. eip is assigned by (eip + ##) + rel32/rel16
-	cpu.eip += op_src->val;        // EIP = EIP' + rel32/rel16
+	cpu.eip += op_src->val;                     // EIP += rel32/rel16
+	print_asm_template1();
 }
 
 make_instr_helper(i)

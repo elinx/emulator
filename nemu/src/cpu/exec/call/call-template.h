@@ -8,7 +8,7 @@ static void do_execute()
 	REG(R_ESP) -= DATA_BYTE;                            // push EIP
 	MEM_W(REG(R_ESP), cpu.eip);
 	// 2. eip is assigned by (eip + ##) + rel32/rel16
-	cpu.eip = cpu.eip + op_src->val + DATA_BYTE;   // EIP = EIP' + rel32/rel16
+	cpu.eip += op_src->val;        // EIP = EIP' + rel32/rel16
 }
 
 make_instr_helper(i)

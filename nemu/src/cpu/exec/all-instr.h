@@ -26,5 +26,6 @@
 
 #include "call/call.h"
 #include "push/push.h"
+#include "test/test.h"
 
 #include "special/special.h"

@@ -28,7 +28,24 @@ typedef struct {
 		};
 	};
 	swaddr_t eip;
-
+	union {
+		swaddr_t eflags;
+		struct {
+			unsigned int CF : 1; // CARRY FLAG
+			unsigned int    : 1; // reserved
+			unsigned int PF : 1; // PARITY FLAG
+			unsigned int    : 1; // reserved
+			unsigned int AF : 1; // AUXILIARY FLAG
+			unsigned int    : 1; // reserved
+			unsigned int ZF : 1; // ZERO FLAG
+			unsigned int SF : 1; // SIGN FLAG
+			unsigned int TF : 1; // TRAP FLAG
+			unsigned int IF : 1; // INTERRUPT ENABLE
+			unsigned int DF : 1; // DIRECTION FLAG
+			unsigned int OF : 1; // OVERFLOW
+			unsigned int    : 20;// reserved
+		};
+	};
 } CPU_state;
 
 extern CPU_state cpu;
@@ -36,6 +53,16 @@ extern CPU_state cpu;
 static inline int check_reg_index(int index) {
 	assert(index >= 0 && index < 8);
 	return index;
+}
+
+static inline int parity(unsigned char byte)
+{
+	int cnt = 0;
+	while (byte) {
+		cnt += byte & 0x1 ? 1 : 0;
+		byte >>= 1;
+	}
+	return cnt & 1;
 }
 
 #define reg_l(index) (cpu.gpr[check_reg_index(index)]._32)

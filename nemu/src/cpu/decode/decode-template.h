@@ -8,7 +8,7 @@
 #define decode_a concat(decode_a_, SUFFIX)
 #define decode_r2rm concat(decode_r2rm_, SUFFIX)
 
-/* cw/cd */
+/* cb/cw/cd */
 make_helper(concat(decode_c_, SUFFIX)) {
 	op_src->type = OP_TYPE_CALL;
 	op_src->val = instr_fetch(eip, DATA_BYTE);

@@ -29,5 +29,5 @@ make_helper(ret) {
 	cpu.eip = swaddr_read(cpu.esp, 4);
 	cpu.esp -= 4;
 	print_asm("ret");
-	return 1; // sizeof(ret) == 1
+	return 0; // cos the otter will add eip by instruction length
 }

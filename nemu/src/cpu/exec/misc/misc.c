@@ -23,3 +23,10 @@ make_helper(lea) {
 	print_asm("leal %s,%%%s", op_src->str, regsl[m.reg]);
 	return 1 + len;
 }
+
+make_helper(ret) {
+	// eip = pop();
+	cpu.eip = swaddr_read(cpu.esp, 4);
+	cpu.esp -= 4;
+	return 1; // sizeof(ret) == 1
+}

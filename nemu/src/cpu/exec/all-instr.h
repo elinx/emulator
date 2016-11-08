@@ -26,6 +26,7 @@
 
 #include "call/call.h"
 #include "push/push.h"
+#include "pop/pop.h"
 #include "test/test.h"
 #include "jump/jump.h"
 #include "cmp/cmp.h"

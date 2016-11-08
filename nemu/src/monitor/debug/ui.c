@@ -90,7 +90,7 @@ static int cmd_print(char *args) {
          */
 
 	res = expr(args, &success);
-	printf("%d\n", res);
+	printf("0x%08x\n", res);
 
 	return 0;
 }

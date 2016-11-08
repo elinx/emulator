@@ -28,5 +28,6 @@
 #include "push/push.h"
 #include "test/test.h"
 #include "jump/jump.h"
+#include "cmp/cmp.h"
 
 #include "special/special.h"

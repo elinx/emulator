@@ -53,13 +53,13 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/mov-c
+USERPROG := obj/testcase
 ENTRY := $(USERPROG)
 
 entry: $(ENTRY)
 	objcopy -S -O binary $(ENTRY) entry
 
-run-%: $(nemu_BIN) $(USERPROG) entry
+run-%: $(nemu_BIN) $(USERPROG)/% entry
 	$(call git_commit, "run")
 	$(nemu_BIN) $(USERPROG)
 

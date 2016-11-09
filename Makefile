@@ -61,7 +61,7 @@ entry: $(ENTRY)
 
 run-%: $(nemu_BIN) $(USERPROG)/%
 	$(call git_commit, "run")
-	objcopy -S -O binary $(USERPROG)/%
+	objcopy -S -O binary $(USERPROG)/$*
 	$(nemu_BIN) $(USERPROG)
 
 gdb: $(nemu_BIN) $(USERPROG) entry

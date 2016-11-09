@@ -54,10 +54,6 @@ clean: clean-cpp
 ##### some convinient rules #####
 
 USERPROG := obj/testcase
-ENTRY := $(USERPROG)
-
-entry: $(ENTRY)
-	objcopy -S -O binary $(ENTRY) entry
 
 run-%: $(nemu_BIN) $(USERPROG)/%
 	$(call git_commit, "run")

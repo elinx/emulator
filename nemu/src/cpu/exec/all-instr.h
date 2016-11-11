@@ -29,7 +29,8 @@
 #include "push/push.h"
 #include "pop/pop.h"
 #include "test/test.h"
-#include "jump/jump.h"
+#include "jump/jcc.h"
+#include "jump/jmp.h"
 #include "cmp/cmp.h"
 
 #include "special/special.h"

@@ -1,6 +1,6 @@
 #include "cpu/exec/template-start.h"
 
-#define instr j
+#define instr jcc
 
 static void do_execute()
 {

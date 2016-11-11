@@ -3,7 +3,7 @@
 #define instr sub
 
 static void do_execute () {
-	DATA_TYPE result = op_dest->val - op_src->val;
+	DATA_TYPE result = REG(op_dest->reg) - op_src->val;
 	fprintf(stderr, "1 dest: %u src: %u", op_dest->val, op_src->val);
 	OPERAND_W(op_dest, result);
 	fprintf(stderr, "2 dest: %u src: %u", op_dest->val, op_src->val);

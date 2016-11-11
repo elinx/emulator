@@ -82,9 +82,9 @@ static int concat3(decode_rm_, SUFFIX, _internal) (swaddr_t eip, Operand *rm, Op
 	int len = read_ModR_M(eip, rm, reg);
 	reg->val = REG(reg->reg);
 
-/* #ifdef DEBUG */
+#ifdef DEBUG
 	snprintf(reg->str, OP_STR_SIZE, "%%%s", REG_NAME(reg->reg));
-/* #endif */
+#endif
 	return len;
 }
 

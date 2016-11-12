@@ -3,6 +3,7 @@ $(eval $(call make_common_rules,nemu,$(nemu_CFLAGS_EXTRA)))
 
 nemu_LDFLAGS := -lreadline
 nemu_CFILES := nemu/src/cpu/exec/call/call.c
+nemu_CFILES += nemu/src/cpu/exec/arith/sub.c
 
 $(nemu_BIN): $(nemu_OBJS)
 	$(call make_command, $(CC), $(nemu_LDFLAGS), ld $@, $^)

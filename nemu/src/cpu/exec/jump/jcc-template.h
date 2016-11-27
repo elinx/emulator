@@ -1,15 +1,23 @@
 #include "cpu/exec/template-start.h"
 
-#define instr jcc
+#define instr j
 
 static void do_execute()
 {
-	if (cpu.ZF) {
-		cpu.eip += op_src->val;
-		if (ops_decoded.is_operand_size_16) {
-			cpu.eip &= 0xffff;
+	switch (ops_decoded.opcode) {
+	case JCC_NA:
+	/* case JCC_BE: */
+		if (cpu.ZF && cpu.CF) {
+			cpu.eip += op_src->val;
+			if (ops_decoded.is_operand_size_16) {
+				cpu.eip &= 0xffff;
+			}
 		}
+		break;
+	default:
+		break;
 	}
+
 	print_asm_template1();
 }
 

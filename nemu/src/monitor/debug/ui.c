@@ -50,7 +50,16 @@ static void dump_regs() {
 		printf("%s: 0x%08x\n", regsl[i], cpu.gpr[i]._32);
 	}
 	printf("eip: 0x%08x\n", cpu.eip);
-
+	printf("eflags: 0x%08x\n", cpu.eflags);
+	printf("   CF: %d\n", cpu.CF);
+	printf("   PF: %d\n", cpu.PF);
+	printf("   AF: %d\n", cpu.AF);
+	printf("   ZF: %d\n", cpu.ZF);
+	printf("   SF: %d\n", cpu.SF);
+	printf("   TF: %d\n", cpu.TF);
+	printf("   IF: %d\n", cpu.IF);
+	printf("   DF: %d\n", cpu.DF);
+	printf("   OF: %d\n", cpu.OF);
 }
 
 static int cmd_info(char *args) {

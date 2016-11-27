@@ -4,6 +4,7 @@
 
 static void do_execute()
 {
+	fprintf(stderr, "2 dest: %u src: %u\n", REG(op_dest->reg), op_src->val);
 	switch (ops_decoded.opcode) {
 	case JCC_NA:
 	/* case JCC_BE: */

@@ -14,6 +14,14 @@ static void do_execute()
 			}
 		}
 		break;
+	case JCC_E:
+	/* case JCC_Z: */
+		if (cpu.ZF) {
+			cpu.eip += op_src->val;
+			if (ops_decoded.is_operand_size_16) {
+				cpu.eip &= 0xffff;
+			}
+		}
 	default:
 		break;
 	}

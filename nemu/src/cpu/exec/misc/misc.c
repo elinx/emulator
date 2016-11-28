@@ -31,3 +31,11 @@ make_helper(ret) {
 	print_asm("ret");
 	return 0; // cos the otter will add eip by instruction length
 }
+
+make_helper(leave) {
+	// ebp ==> esp
+	// ebp = pop
+	cpu.esp = cpu.ebp;
+	cpu.ebp = swaddr_read(cpu.esp, 4);
+	return 1;
+}

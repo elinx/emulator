@@ -193,4 +193,25 @@ void concat(write_operand_, SUFFIX) (Operand *op, DATA_TYPE src) {
 	else { assert(0); }
 }
 
+int concat(sext_, SUFFIX) (DATA_TYPE val)
+{
+	int res = 0;
+
+	switch (sizeof(val)) {
+	case 1:
+		res = (0x000000FF & val);
+		if (res & 0x80)
+			res += 0xFFFFFF00;
+		break;
+	case 2:
+		res = (0x0000FFFF & val);
+		if (res & 0x8000)
+			res += 0xFFFF0000;
+		break;
+	default:
+		break;
+	}
+	return res;
+}
+
 #include "cpu/exec/template-end.h"

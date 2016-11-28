@@ -9,7 +9,7 @@ static void do_execute()
 	case JCC_NA:
 	/* case JCC_BE: */
 		if (cpu.ZF || cpu.CF) {
-			cpu.eip += op_src->val;
+			cpu.eip += SEXT(op_src->val);
 			if (ops_decoded.is_operand_size_16) {
 				cpu.eip &= 0xffff;
 			}

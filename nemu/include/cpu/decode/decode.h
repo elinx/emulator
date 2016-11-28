@@ -57,4 +57,8 @@ void write_operand_b(Operand *, uint8_t);
 void write_operand_w(Operand *, uint16_t);
 void write_operand_l(Operand *, uint32_t);
 
+int32_t sext_b(uint8_t);
+int32_t sext_w(uint16_t);
+int32_t sext_l(uint32_t);
+
 #endif
